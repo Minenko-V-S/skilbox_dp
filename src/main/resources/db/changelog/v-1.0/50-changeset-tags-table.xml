@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="6" author="MinenkoVS">
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter="\nGO"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"
+                 path="50-create-tags-table.sql"/>
+
+        <createTable tableName="tags">
+            <column name="id" type="int" autoIncrement="true" >
+                <constraints nullable ="false" primaryKey = "true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <sql>INSERT ignore INTO test.tags (name) VALUES
+            ('HTML'),
+            ('Java'),
+            ('Linux'),
+            ('MacOS'),
+            ('Python'),
+            ('Spring'),
+            ('Windows'),
+            ('важно'),
+            ('горячее'),
+            ('игры'),
+            ('идея'),
+            ('космос'),
+            ('медицина'),
+            ('москва'),
+            ('новинка'),
+            ('новость'),
+            ('нуар'),
+            ('программирование'),
+            ('селедка'),
+            ('статистика'),
+            ('технологии');</sql>
+        <rollback>
+            <sqlFile dbms="mysql"
+                     encoding="UTF-8"
+                     endDelimiter="\nGO"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"
+                     path="50-drop-tags-table.sql"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

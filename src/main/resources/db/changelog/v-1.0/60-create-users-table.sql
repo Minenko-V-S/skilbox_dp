@@ -1,0 +1,15 @@
+--INSERT IGNORE INTO test.`users` ( `code`, `email`,  `name`, `password`, `photo`, `reg_time`) VALUES
+--	( NULL, 'dima.dima@fakemail.tld',  'Дмитрий Дмитриев', '$2y$08$.zJ7NsSpZ04Z43hk/J9ffue5FfKy/nBZBmTBxTimcT0X4azfbRW56', NULL, '2020-01-13 04:23:57.000000'),
+--	( NULL, 'konstantin.konstantinov@fakemail.tld', 'Константин Константинов', '$2y$08$lDHUaI.h2K0nv882W4d/DudTaZSJF35g3dY/Nka67UwoOZt4JEkdu', NULL, '2020-01-01 18:24:51.000000'),
+--	( NULL, 'anna@fakemail.tld', 'Анна Анновян', '$2y$08$dTQ5uIeg6Ktt3wovddWeMu2QNNp166k3HgKkecxF5MnJqE/fohaQa', NULL, '2019-12-28 18:36:47.000000'),
+--	( NULL, 'serge@fakemail.tld',  'Сергей Сергеев', '$2y$08$xV3JOkpu89Al.e2ICZFNcelQVN.M8Ml6ZyJS.6TdxAW1BRMJztk42', NULL, '2020-01-07 04:04:57.000000'),
+--	( NULL, 'aa@fakemail.tld', 'Артём Артёмов', '$2y$08$rMNoBRQnGZsVtlW7BwTKlesG631oADviiNzmE9iBX2BdDUIuoNMy2', NULL, '2020-01-11 02:29:13.000000'),
+--	( NULL, 'tanya.tanya@fakemail.tld',  'Татьяна Татьянович', '$2y$08$iRHzU00nVdDkQYgYbj8jsOQdZap9pzgNZ48qNWRl/6NixtFSQvg6G', NULL, '2020-01-02 19:38:46.000000'),
+--	( NULL, 'alevtina@fakemail.tld',  'Алевтина Алевтинкина', '$2y$08$H1iL9OrYCJongMzSPyiEguKaoEZKqfHEJaiyxn40iBOAxNSrYpqQi', NULL, '2019-12-29 09:40:37.000000'),
+--	( NULL, 'ivanov.ivan@fakemail.tld',  'Иван Иванов', '$2y$08$k1RJEnio3j5y7bpHh/oA1eJ5H7wGKOGrIJle.gJIF3bkZkiPFbhOe', NULL, '2020-01-14 14:19:04.000000'),
+--	( NULL, 'peter.the.pete@fakemail.tld',  'Пётр Петров', '$2y$08$2bvLDN3jeYG1/78bqIduv.RS.deTM.7Qse9DgipvAGQGRuOe8kIva', NULL, '2020-01-05 08:08:17.000000'),
+--	( NULL, 'demyan2D@fakemail.tld',  'Демьян Демьяненко', '$2y$08$BESk64YmYRuGNNTqYAHNQ.8HBqdhczfybYK1HXufEaNU1QbbgHwwu', NULL, '2019-12-28 08:23:11.000000'),
+--	( NULL, 'konstantin.ershov@gmail.com',  'Константин Ершов', '$2y$08$px8dDw0/Evl6j0noResHwuFqOW7I3EclaAxbFbTuVaG75aEurWxyC', NULL, '2020-02-05 19:31:32.000000'),
+--	( NULL, 'piter.ershov@gmail.com',  'piter.ershov@gmail.com', '$2y$08$2KjxvwFYrT8Pz67ABoj8/uuTgClGhsr/cdCWgFuVZrFpLxpOrbv6G', NULL, '2020-02-05 19:48:28.000000'),
+--	( NULL, 'ivan.ifanoff@gmail.tld',  'ivan.ifanoff@gmail.tld', '$2y$08$JMmHLCBVJZNE6Q/wG9BgoeZeXEhKU/jQge8TVqGMlS4RJp8ayhtf2', NULL, '2020-02-05 19:51:37.000000'),
+--	( NULL, 'peter.pupyrnik@yandex.ru',  'peter.pupyrnik@yandex.ru', '$2y$08$O5Uo.GIRmcyeOn1CwiHIiefKDjk0HGItvTTJMCBpP6HIKeewYzBeu', NULL, '2020-02-10 17:10:58.000000');

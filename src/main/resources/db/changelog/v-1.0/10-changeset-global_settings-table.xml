@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="2" author="MinenkoVS">
+        <sqlFile dbms="mysql"
+                 encoding="UTF-8"
+                 endDelimiter="\nGO"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"
+                 path="10-create-global_settings-table.sql"/>
+
+        <createTable tableName="global_settings">
+            <column name="id" type="int" autoIncrement="true" >
+                <constraints nullable ="false" primaryKey = "true"/>
+            </column>
+            <column name="code" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <sql>
+            insert into test.global_settings(code, name, value)
+            values ('MULTIUSER_MODE', 'Многопользовательский режим', 'NO'),
+            ('POST_PREMODERATION', 'Премодерация постов', 'YES'),
+            ('STATISTICS_IS_PUBLIC', 'Показывать всем статистику блога', 'YES');
+        </sql>
+        <rollback>
+            <sqlFile dbms="mysql"
+                     encoding="UTF-8"
+                     endDelimiter="\nGO"
+                     relativeToChangelogFile="true"
+                     splitStatements="true"
+                     stripComments="true"
+                     path="10-drop-global_settings-table.sql"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
