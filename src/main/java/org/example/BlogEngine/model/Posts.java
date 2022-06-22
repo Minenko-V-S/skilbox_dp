@@ -123,4 +123,8 @@ public class Posts {
         announce = announce.substring(0, Math.min(150, announce.length())) + "...";
         return announce;
     }
+
+    public int getPostId() {
+        return PostId;
+    }
 }

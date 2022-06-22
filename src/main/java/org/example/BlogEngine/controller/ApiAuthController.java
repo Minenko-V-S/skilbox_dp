@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiAuthController {
 
 
+    private final AuthService authService;
+
     public ApiAuthController(AuthService authService) {
         this.authService = authService;
     }
