@@ -1,16 +1,12 @@
 package org.example.BlogEngine.model;
 
 
-
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
 
 @Entity
 @Table(name = "captcha_codes", schema="test")
-@NoArgsConstructor
 public class CaptchaCodes {
     @Id
     @Column(name = "id", nullable = false)
@@ -38,4 +34,27 @@ public class CaptchaCodes {
     @Column(name = "secret_code", nullable = false)
     private String secretCode;
 
+    public Instant getTime() {
+        return time;
+    }
+
+    public void setTime(Instant time) {
+        this.time = time;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getSecretCode() {
+        return secretCode;
+    }
+
+    public void setSecretCode(String secretCode) {
+        this.secretCode = secretCode;
+    }
 }

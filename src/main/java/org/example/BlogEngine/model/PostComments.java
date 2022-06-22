@@ -7,12 +7,14 @@ import java.util.Date;
 
 @Entity
 @Table(name = "post_comments", schema="test")
-@NoArgsConstructor
 public class PostComments {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    public PostComments() {
+    }
 
     public Long getId() {
         return id;
@@ -29,19 +31,50 @@ public class PostComments {
     @JoinColumn(nullable = false)
     private Posts postId;   // пост, к которому написан комментарий
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
-    private Users userId;   // автор комментария
+    @Column(name = "user_id")
+    private Integer userId;   // автор комментария
 
     @Column(nullable = false)
     private Date time;    // дата и время комментария
 
 
-    public PostComments(long id, int parentId, Posts postId, Users userId, Date time) {
+    public PostComments(Long id, int parentId, Posts postId, Integer userId, Date time) {
         this.id = id;
         this.parentId = parentId;
         this.postId = postId;
         this.userId = userId;
+        this.time = time;
+    }
+
+    public int getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(int parentId) {
+        this.parentId = parentId;
+    }
+
+    public Posts getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Posts postId) {
+        this.postId = postId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
         this.time = time;
     }
 }

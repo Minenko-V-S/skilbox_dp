@@ -1,14 +1,11 @@
 package org.example.BlogEngine.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 
 @Entity
 @Table(name = "tag_2_post", schema="test")
-@Data
-@NoArgsConstructor
+
 public class Tag2Post {
 
     @Id
@@ -25,10 +22,36 @@ public class Tag2Post {
     private Tags tagId;
 
 
+    public Tag2Post() {
+    }
 
     public Tag2Post(int id, Posts postId, Tags tagId) {
         this.id = id;
         this.postId = postId;
+        this.tagId = tagId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Posts getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Posts postId) {
+        this.postId = postId;
+    }
+
+    public Tags getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(Tags tagId) {
         this.tagId = tagId;
     }
 }

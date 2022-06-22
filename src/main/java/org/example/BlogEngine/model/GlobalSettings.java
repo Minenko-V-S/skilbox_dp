@@ -1,51 +1,56 @@
 package org.example.BlogEngine.model;
 
 
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "global_settings", schema="test")
-@NoArgsConstructor
 public class GlobalSettings {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    private Integer id;
+    @JsonProperty("MULTIUSER_MODE")
+    private boolean multiuserMode;
+    @JsonProperty("POST_PREMODERATION")
+    private boolean postPremoderation;
+    @JsonProperty("STATISTICS_IS_PUBLIC")
+    private boolean statisticsIsPublic;
 
-    // Системное имя настройки
-    @Column(nullable = false)
-    private String code;
-
-    // Название настройки
-    @Column(nullable = false)
-    private String name;
-
-    // Значение настройки
-    @Column(nullable = false)
-    private String value;
-
-     /*          Значения глобальных настроек:
-              code                        name                        value
-         MULTIUSER_MODE          Многопользовательский режим         YES / NO
-         POST_PREMODERATION      Премодерация постов                 YES / NO
-         STATISTICS_IS_PUBLIC    Показывать всем статистику блога    YES / NO
-     */
-
-
-    public GlobalSettings(long id, String code, String name, String value) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-        this.value = value;
+    public GlobalSettings() {
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public boolean isMultiuserMode() {
+        return multiuserMode;
+    }
+
+    public void setMultiuserMode(boolean multiuserMode) {
+        this.multiuserMode = multiuserMode;
+    }
+
+    public boolean isPostPremoderation() {
+        return postPremoderation;
+    }
+
+    public void setPostPremoderation(boolean postPremoderation) {
+        this.postPremoderation = postPremoderation;
+    }
+
+    public boolean isStatisticsIsPublic() {
+        return statisticsIsPublic;
+    }
+
+    public void setStatisticsIsPublic(boolean statisticsIsPublic) {
+        this.statisticsIsPublic = statisticsIsPublic;
     }
 }
