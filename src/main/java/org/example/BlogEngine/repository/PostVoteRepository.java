@@ -11,4 +11,7 @@ public interface PostVoteRepository extends JpaRepository <PostVotes, Integer> {
 
     @Query("SELECT count(pv) FROM PostVotes pv WHERE pv.postId = ?1 AND pv.value = ?2")
     Optional<Integer> findCountVotesByPostId (int postId, int value);
+
+    @Query("FROM PostVotes pv WHERE pv.postId = ?1 AND pv.userId = ?2")
+    Optional<PostVotes> getOneByPostAndUser(Integer postId, int userId);
 }

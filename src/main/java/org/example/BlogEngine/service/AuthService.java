@@ -185,5 +185,25 @@ public class AuthService {
         return stringBuilder.toString();
     }
 
+    public boolean isUserAuthorized () {
+        try {
+            String sessName = httpSession.getId();
+            List<Session> currentSessions = sessionRepository.findAll();
+            result = currentSessions.stream().anyMatch(s -> s.getSessionName().equals(sessName));
+        } catch (NullPointerException ex) {
+            ex.printStackTrace();
+            result = false;
+        }
+        return result;
+    }
+
+    public Integer getUserId() {
+        return
+                sessionRepository.findAll().stream().
+                        filter(s -> s.getSessionName().equals(httpSession.getId())).
+                        map(Session::getUserId).
+                        findAny().orElse(0);
+    }
+
 
 }

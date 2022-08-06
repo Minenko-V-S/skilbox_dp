@@ -1,12 +1,12 @@
 package org.example.BlogEngine.service;
 
 import org.example.BlogEngine.enums.ModerationStatus;
-import org.example.BlogEngine.model.PostComments;
-import org.example.BlogEngine.model.Posts;
-import org.example.BlogEngine.model.Tags;
-import org.example.BlogEngine.model.User;
+import org.example.BlogEngine.model.*;
 import org.example.BlogEngine.repository.*;
+import org.example.BlogEngine.requests.CommentRequest;
+import org.example.BlogEngine.requests.LikeRequest;
 import org.example.BlogEngine.response.GeneralResponse;
+import org.example.BlogEngine.response.ResultResponse;
 import org.example.BlogEngine.response.UserResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +20,8 @@ import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.time.LocalDateTime.now;
+
 @Service
 public class PostService {
     private final CommentRepository commentRepository;
@@ -28,15 +30,17 @@ public class PostService {
     private final PostRepository postRepository;
     private final TagsRepository tagsRepository;
     private final Tag2PostRepository tag2PostRepository;
+    private final AuthService authService;
     private ResponseEntity<?> responseEntity;
 
-    public PostService(CommentRepository commentRepository, PostVoteRepository postVoteRepository, UserRepository userRepository, PostRepository postRepository, TagsRepository tagsRepository, Tag2PostRepository tag2PostRepository) {
+    public PostService(CommentRepository commentRepository, PostVoteRepository postVoteRepository, UserRepository userRepository, PostRepository postRepository, TagsRepository tagsRepository, Tag2PostRepository tag2PostRepository, AuthService authService) {
         this.commentRepository = commentRepository;
         this.postVoteRepository = postVoteRepository;
         this.userRepository = userRepository;
         this.postRepository = postRepository;
         this.tagsRepository = tagsRepository;
         this.tag2PostRepository = tag2PostRepository;
+        this.authService = authService;
     }
 
     public ResponseEntity<?> getPosts(Integer offset, Integer limit, String mode) {
@@ -264,6 +268,80 @@ public class PostService {
             responseMap.put("tags", tagNames);
         }
         return new ResponseEntity<>(responseMap, HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> postLikeDislike(LikeRequest likeRequest, Integer value) {
+        PostVotes postVote;
+        int userId = authService.getUserId();
+        int post_id = likeRequest.getPost_id();
+        Posts post = postRepository.getOne(likeRequest.getPost_id());
+        Optional<PostVotes> postVoteOptional = postVoteRepository.getOneByPostAndUser(post_id, userId);
+        if (!authService.isUserAuthorized()) {
+            return ResponseEntity.ok(new ResultResponse(false));
+        }
+
+        if (post.getUserId().equals(userId)) {
+            return ResponseEntity.ok(new ResultResponse(false));
+        }
+
+        if (postVoteOptional.isPresent()) {
+            if (postVoteOptional.get().getValue().equals(value)) {
+                return new ResponseEntity<>("This vote is doubled! Not acceptable.", HttpStatus.OK);
+            } else {
+                postVote = postVoteOptional.get();
+                postVote.setValue(value);
+                postVoteRepository.save(postVote);
+                return new ResponseEntity<>(new ResultResponse(true), HttpStatus.OK);
+            }
+        }
+        PostVotes newPostVote = createPostVote(post_id, value, userId);
+        postVoteRepository.save(newPostVote);
+        return new ResponseEntity<>(new ResultResponse(true), HttpStatus.OK);
+    }
+
+    private PostVotes createPostVote(Integer postId, Integer value, Integer userId) {
+        PostVotes postVote = new PostVotes();
+        postVote.setPost(postRepository.getOne(postId));
+        postVote.setPostId(postId);
+        postVote.setTime(Timestamp.valueOf(now()));
+        postVote.setUserId(userId);
+        postVote.setValue(value);
+        return postVote;
+    }
+
+    public ResponseEntity<?> postComment(CommentRequest commentRequest) {
+        boolean result = true;
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+        Map<String, String> errors = new LinkedHashMap<>();
+        if (!authService.isUserAuthorized()) {
+            errors.put("errors", "User is unauthorized!");
+            map.put("result", new ResultResponse(false));
+            map.put("errors", errors);
+            return new ResponseEntity<>(map, HttpStatus.UNAUTHORIZED);
+        }
+        Integer userId = authService.getUserId();
+        Integer postId = commentRequest.getPost_id();
+        PostComments postComment = new PostComments();
+        if (commentRequest.getText().length() < 10 || commentRequest.getText().length() > 300) {
+            result = false;
+            errors.put("text", "Text's length is out of limit!");
+        }
+        if (result) {
+            if (commentRequest.getParent_id() != null) {
+                postComment.setParent_id(commentRequest.getParent_id());
+            }
+            postComment.setPost_id(postId);
+            postComment.setPost(postRepository.getOne(postId));
+            postComment.setText(commentRequest.getText());
+            postComment.setTime(Timestamp.valueOf(now()));
+            postComment.setUserId(userId);
+            commentRepository.save(postComment);
+            map.put("id", postComment.getCommentId());
+        } else {
+            map.put("result", new ResultResponse(false));
+            map.put("errors", errors);
+        }
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
 
