@@ -1,12 +1,8 @@
 package org.example.BlogEngine.model;
 
-import lombok.Data;
-
-
 import javax.persistence.*;
-
 import java.sql.Timestamp;
-import java.util.Date;
+
 
 @Entity
 @Table(name = "post_votes", schema="test")

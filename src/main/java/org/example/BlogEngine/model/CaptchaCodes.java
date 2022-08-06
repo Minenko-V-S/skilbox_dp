@@ -2,44 +2,45 @@ package org.example.BlogEngine.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.time.Instant;
 
 @Entity
 @Table(name = "captcha_codes", schema="test")
 public class CaptchaCodes {
     @Id
-    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
 
-    public Long getId() {
+    @NotBlank(message = "Captcha code is mandatory")
+
+    private String code;
+
+    @NotBlank(message = "Secret code is mandatory")
+    @Column(name = "secret_code")
+    private String secretCode;
+
+    private Timestamp timestamp;
+
+    public CaptchaCodes() {
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    // Дата и время генерации кода капчи
-    @NotNull
-    @Column(nullable = false)
-    private Instant time;
-
-    // Код, отображаемый на картинкке капчи
-    @Column(nullable = false)
-    private String code;
-
-    //Код, передаваемый в параметре
-    @Column(name = "secret_code", nullable = false)
-    private String secretCode;
-
-    public Instant getTime() {
-        return time;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setTime(Instant time) {
-        this.time = time;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getCode() {

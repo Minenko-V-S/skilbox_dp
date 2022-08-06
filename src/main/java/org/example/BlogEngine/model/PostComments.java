@@ -1,6 +1,5 @@
 package org.example.BlogEngine.model;
 
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -20,7 +19,7 @@ public class PostComments {
 
     @Column(name = "user_id")
     private Integer userId;
-    private Timestamp timestamp;
+    private Timestamp time;
     private String text;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -28,6 +27,14 @@ public class PostComments {
     public Posts post;
 
     public PostComments() {
+    }
+
+    public Posts getPost() {
+        return post;
+    }
+
+    public void setPost(Posts post) {
+        this.post = post;
     }
 
     @Override
@@ -66,20 +73,12 @@ public class PostComments {
         this.post_id = post_id;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     public Timestamp getTime() {
-        return timestamp;
+        return time;
     }
 
-    public void setTime(Timestamp timestamp) {
-        this.timestamp = timestamp;
+    public void setTime(Timestamp time) {
+        this.time = time;
     }
 
     public String getText() {
@@ -90,11 +89,11 @@ public class PostComments {
         this.text = text;
     }
 
-    public Posts getPost() {
-        return post;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setPost(Posts post) {
-        this.post = post;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
