@@ -13,28 +13,39 @@ import java.util.Date;
 public class PostVotes {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int voteId;
+    private Integer voteId;
+
+    @Column(name = "post_id", insertable = false, updatable = false)
+    private Integer postId;
 
     @Column(name = "user_id")
-    private Integer userId;  // тот, кто поставил лайк / дизлайк
+    private Integer userId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_id", nullable = false)
-    private Posts postId;  // пост, которому поставлен лайк / дизлайк
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private Posts post;
 
-    @Column(nullable = false)
-    private Timestamp time;   // дата и время лайка / дизлайка
+    private Timestamp time;
+    private Integer value;
 
-    @Column(nullable = false)
-    private Integer value;  //  лайк или дизлайк: 1 или -1
+    public PostVotes() {
+    }
 
-    public int getVoteId() {
+    public Integer getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Integer postId) {
+        this.postId = postId;
+    }
+
+    public Integer getVoteId() {
         return voteId;
     }
 
-    public void setVoteId(int voteId) {
+    public void setVoteId(Integer voteId) {
         this.voteId = voteId;
     }
 
@@ -46,17 +57,15 @@ public class PostVotes {
         this.userId = userId;
     }
 
-    public Posts getPostId() {
-        return postId;
+    public Posts getPost() {
+        return post;
     }
 
-    public void setPostId(Posts postId) {
-        this.postId = postId;
+    public void setPost(Posts post) {
+        this.post = post;
     }
 
-    public Timestamp getTime() {
-        return time;
-    }
+    public Timestamp getTime() {return time;}
 
     public void setTime(Timestamp time) {
         this.time = time;

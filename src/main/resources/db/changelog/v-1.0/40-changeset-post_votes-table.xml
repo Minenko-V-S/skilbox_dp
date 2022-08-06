@@ -23,14 +23,24 @@
         <column name="post_id" type="int">
             <constraints nullable="false"/>
         </column>
-        <column name="time" type="DATETIME(6)">
+        <column name="timestamp" type="DATETIME(6)">
             <constraints nullable="false"/>
         </column>
         <column name="value" type="tinyint">
             <constraints nullable="false"/>
         </column>
         </createTable>
-
+<sql>
+        INSERT INTO test.post_votes ( timestamp, value, post_id, user_id) VALUES
+        ( '2020-01-26 19:35:52.000000', 1, 5, 8),
+        ( '2020-01-26 19:35:52.000000', 1, 5, 5),
+        ( '2020-01-26 19:35:52.000000', 1, 5, 3),
+        ( '2020-01-26 19:35:52.000000', 1, 5, 2),
+        ( '2020-01-26 19:35:52.000000', 1, 5, 4),
+        ( '2020-01-26 19:35:52.000000', 1, 5, 1),
+        ( '2020-01-26 19:35:52.000000', 1, 5, 7),
+        ( '2020-01-26 19:35:52.000000', 1, 5, 6);
+</sql>
         <rollback>
             <sqlFile dbms="mysql"
                      encoding="UTF-8"

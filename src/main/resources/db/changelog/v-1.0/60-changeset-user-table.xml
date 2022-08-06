@@ -40,6 +40,31 @@
             </column>
         </createTable>
 
+        <sql>
+            INSERT ignore INTO test.users  ( email, name, password, photo, reg_time) VALUES
+            (  'dima.dima@fakemail.tld',  'Дмитрий Дмитриев', '$2y$08$.zJ7NsSpZ04Z43hk/J9ffue5FfKy/nBZBmTBxTimcT0X4azfbRW56', NULL, '2020-01-13 04:23:57.000000'),
+            (  'konstantin.konstantinov@fakemail.tld', 'Константин Константинов', '$2y$08$lDHUaI.h2K0nv882W4d/DudTaZSJF35g3dY/Nka67UwoOZt4JEkdu', NULL, '2020-01-01 18:24:51.000000'),
+            (  'anna@fakemail.tld', 'Анна Анновян', '$2y$08$dTQ5uIeg6Ktt3wovddWeMu2QNNp166k3HgKkecxF5MnJqE/fohaQa', NULL, '2019-12-28 18:36:47.000000'),
+            (  'serge@fakemail.tld',  'Сергей Сергеев', '$2y$08$xV3JOkpu89Al.e2ICZFNcelQVN.M8Ml6ZyJS.6TdxAW1BRMJztk42', NULL, '2020-01-07 04:04:57.000000'),
+            (  'aa@fakemail.tld', 'Артём Артёмов', '$2y$08$rMNoBRQnGZsVtlW7BwTKlesG631oADviiNzmE9iBX2BdDUIuoNMy2', NULL, '2020-01-11 02:29:13.000000'),
+            (  'tanya.tanya@fakemail.tld',  'Татьяна Татьянович', '$2y$08$iRHzU00nVdDkQYgYbj8jsOQdZap9pzgNZ48qNWRl/6NixtFSQvg6G', NULL, '2020-01-02 19:38:46.000000'),
+            (  'alevtina@fakemail.tld',  'Алевтина Алевтинкина', '$2y$08$H1iL9OrYCJongMzSPyiEguKaoEZKqfHEJaiyxn40iBOAxNSrYpqQi', NULL, '2019-12-29 09:40:37.000000'),
+            (  'ivanov.ivan@fakemail.tld',  'Иван Иванов', '$2y$08$k1RJEnio3j5y7bpHh/oA1eJ5H7wGKOGrIJle.gJIF3bkZkiPFbhOe', NULL, '2020-01-14 14:19:04.000000'),
+            (  'peter.the.pete@fakemail.tld',  'Пётр Петров', '$2y$08$2bvLDN3jeYG1/78bqIduv.RS.deTM.7Qse9DgipvAGQGRuOe8kIva', NULL, '2020-01-05 08:08:17.000000'),
+            (  'demyan2D@fakemail.tld',  'Демьян Демьяненко', '$2y$08$BESk64YmYRuGNNTqYAHNQ.8HBqdhczfybYK1HXufEaNU1QbbgHwwu', NULL, '2019-12-28 08:23:11.000000'),
+            (  'konstantin.ershov@gmail.com',  'Константин Ершов', '$2y$08$px8dDw0/Evl6j0noResHwuFqOW7I3EclaAxbFbTuVaG75aEurWxyC', NULL, '2020-02-05 19:31:32.000000'),
+            ( 'piter.ershov@gmail.com',  'Пётер Ершов', '$2y$08$2KjxvwFYrT8Pz67ABoj8/uuTgClGhsr/cdCWgFuVZrFpLxpOrbv6G', NULL, '2020-02-05 19:48:28.000000'),
+            (  'ivan.ifanoff@gmail.tld',  'Иван Иваноф', '$2y$08$JMmHLCBVJZNE6Q/wG9BgoeZeXEhKU/jQge8TVqGMlS4RJp8ayhtf2', NULL, '2020-02-05 19:51:37.000000'),
+            (  'peter.pupyrnik@yandex.ru',  'Пётр Пупурник', '$2y$08$O5Uo.GIRmcyeOn1CwiHIiefKDjk0HGItvTTJMCBpP6HIKeewYzBeu', NULL, '2020-02-10 17:10:58.000000'),
+            (  'ads@yandex.ru', 'Andrey', '1234567890', NULL, '2020-05-10 16:25:24.000000'),
+            (  'pv@yandex.ru', 'Pavel', '1234567890', NULL, '2020-06-03 17:25:24.000000'),
+            (  'nk@yandex.ru', 'Nikita', '1234567890', NULL, '2020-03-06 18:25:24.000000'),
+            (  'vm@yandex.ru', 'Vitaliy', '1234567890', NULL, '2020-05-04 19:25:24.000000'),
+            (  'ss@yandex.ru', 'Stas', '1234567890', NULL, '2020-12-01 15:25:24.000000'),
+            (  'vd@yandex.ru', 'Vlad', '1234567890', NULL, '2020-06-20 13:25:24.000000'),
+            (  'mk@yandex.ru', 'Maksim', '1234567890', NULL, '2020-08-10 12:25:24.000000'),
+            (  'admin@yandex.ru', 'admin', '1234567890', NULL, '2020-03-01 14:25:24.000000');
+        </sql>
 
         <rollback>
             <sqlFile dbms="mysql"

@@ -3,63 +3,67 @@ package org.example.BlogEngine.model;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "post_comments", schema="test")
 public class PostComments {
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private Integer commentId;
+
+    private Integer parent_id;
+
+    @Column(insertable = false, updatable = false)
+    private Integer post_id;
+
+    @Column(name = "user_id")
+    private Integer userId;
+    private Timestamp timestamp;
+    private String text;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="post_id")
+    public Posts post;
 
     public PostComments() {
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PostComments )) return false;
+        return commentId != null && commentId.equals(((PostComments) o).getCommentId());
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public int hashCode() {
+        return 31;
     }
 
-    private int parentId; // комментарий, на который оставлен этот комментарий (может быть NULL, если комментарий оставлен просто к посту)
-
-    // @Column(nullable = false)
-    @ManyToOne()
-    @JoinColumn(nullable = false)
-    private Posts postId;   // пост, к которому написан комментарий
-
-    @Column(name = "user_id")
-    private Integer userId;   // автор комментария
-
-    @Column(nullable = false)
-    private Date time;    // дата и время комментария
-
-
-    public PostComments(Long id, int parentId, Posts postId, Integer userId, Date time) {
-        this.id = id;
-        this.parentId = parentId;
-        this.postId = postId;
-        this.userId = userId;
-        this.time = time;
+    public Integer getCommentId() {
+        return commentId;
     }
 
-    public int getParentId() {
-        return parentId;
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
 
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
+    public Integer getParent_id() {
+        return parent_id;
     }
 
-    public Posts getPostId() {
-        return postId;
+    public void setParent_id(Integer parent_id) {
+        this.parent_id = parent_id;
     }
 
-    public void setPostId(Posts postId) {
-        this.postId = postId;
+    public Integer getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(Integer post_id) {
+        this.post_id = post_id;
     }
 
     public Integer getUserId() {
@@ -70,11 +74,27 @@ public class PostComments {
         this.userId = userId;
     }
 
-    public Date getTime() {
-        return time;
+    public Timestamp getTime() {
+        return timestamp;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setTime(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Posts getPost() {
+        return post;
+    }
+
+    public void setPost(Posts post) {
+        this.post = post;
     }
 }
